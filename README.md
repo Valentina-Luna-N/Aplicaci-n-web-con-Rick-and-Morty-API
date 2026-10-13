@@ -1,6 +1,6 @@
 # Rick and Morty - Explorador de personajes
 
-Aplicación web (HTML, CSS y JavaScript puro) que consume la [Rick and Morty API](https://rickandmortyapi.com/).
+Aplicación web (HTML, CSS y JavaScript) que consume la [Rick and Morty API](https://rickandmortyapi.com/).
 
 ## Funcionalidades
 - Listado de personajes con imagen, estado y especie

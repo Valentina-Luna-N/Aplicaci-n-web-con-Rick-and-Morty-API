@@ -24,5 +24,4 @@ styles.css   -> estilos
 app.js       -> lógica y consumo de la API
 ```
 
-## Autor
-Trabajo individual - [tu nombre aquí]
+

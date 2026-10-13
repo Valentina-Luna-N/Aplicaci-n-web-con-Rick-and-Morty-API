@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rick and Morty - Explorador de personajes</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <h1>Rick and Morty</h1>
+    <p>Explorador de personajes con la <a href="https://rickandmortyapi.com/" target="_blank" rel="noopener">Rick and Morty API</a></p>
+  </header>
+
+  <main class="container">
+    <section class="filters">
+      <input id="search" type="search" placeholder="Buscar por nombre (ej: Rick)" autocomplete="off" />
+      <select id="status">
+        <option value="">Todos los estados</option>
+        <option value="alive">Vivo</option>
+        <option value="dead">Muerto</option>
+        <option value="unknown">Desconocido</option>
+      </select>
+    </section>
+
+    <p id="message" class="message" role="status"></p>
+    <section id="characters" class="grid"></section>
+
+    <nav class="pagination">
+      <button id="prev">&larr; Anterior</button>
+      <span id="page-info"></span>
+      <button id="next">Siguiente &rarr;</button>
+    </nav>
+  </main>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <button id="close-modal" class="close" aria-label="Cerrar">&times;</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

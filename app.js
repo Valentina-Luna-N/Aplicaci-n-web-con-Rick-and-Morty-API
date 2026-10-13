@@ -9,6 +9,9 @@ const state = {
   totalPages: 1,
 };
 
+// Identifica la última petición enviada para ignorar respuestas viejas
+let requestId = 0;
+
 // ===== 3. Referencias al DOM =====
 const grid = document.getElementById("characters");
 const message = document.getElementById("message");
@@ -27,14 +30,23 @@ async function fetchCharacters() {
   if (state.name) params.set("name", state.name);
   if (state.status) params.set("status", state.status);
 
+  const currentRequest = ++requestId;
   message.textContent = "Cargando...";
   grid.innerHTML = "";
 
   try {
     const response = await fetch(`${API_URL}?${params}`);
 
+    // Si el usuario ya hizo otra consulta, esta respuesta se descarta
+    if (currentRequest !== requestId) return;
+
     // La API responde 404 cuando no hay resultados para el filtro
+    // o cuando la página pedida no existe para ese filtro
     if (response.status === 404) {
+      if (state.page > 1) {
+        state.page = 1; // volver a la primera página y reintentar
+        return fetchCharacters();
+      }
       state.totalPages = 1;
       message.textContent = "No se encontraron personajes con esos filtros.";
       updatePagination();
@@ -43,6 +55,7 @@ async function fetchCharacters() {
     if (!response.ok) throw new Error(`Error HTTP ${response.status}`);
 
     const data = await response.json();
+    if (currentRequest !== requestId) return;
     state.totalPages = data.info.pages;
     message.textContent = `${data.info.count} personajes encontrados`;
     renderCharacters(data.results);
@@ -154,3 +167,4 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDetai
 
 // ===== 8. Inicio =====
 fetchCharacters();
+
